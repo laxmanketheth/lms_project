@@ -189,16 +189,20 @@ router.delete('/deleteCourse/:courseid', async (req, res) => {
 
 ///======================================api for searching a course in search bar======================================///
 
-// Define a route for the GET request
-router.get('/search', async (req, res) => {
+
+
+
+
+router.get('/search/:query', async (req, res) => {
 
 
     try {
-        const searchTerm = req.query.q; // Get the search term from the query parameter
+        searchquery = req.params.query
+        // const searchTerm = req.query.q; // Get the search term from the query parameter
 
         let results =   await knex('courses')
                          .select('course_name','price', 'duration','start_date', 'end_date','course_description')
-                       .whereRaw(`course_name @@ to_tsquery(?)`, [searchTerm]);
+                       .whereRaw(`course_name @@ to_tsquery(?)`, [searchquery]);
 
                          res.send(results);
                          console.log(results);
@@ -210,19 +214,6 @@ router.get('/search', async (req, res) => {
 
 });
 
-//  router.get('/search', (req, res) => {
-//     const searchTerm = req.query.q; // Get the search term from the query parameter
 
-//     db('courses')
-//        .whereRaw(`course_name @@ to_tsquery(?)`, [searchTerm])
-//        .then((results) => {
-//           // Send the query results as the response
-//           res.json(results);
-//        })
-//        .catch((error) => {
-//           // Handle any errors
-//           res.status(500).json({ error: 'An error occurred while performing the search.' });
-//        });
-//  });
 
 module.exports = router;
