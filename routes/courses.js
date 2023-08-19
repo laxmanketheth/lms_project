@@ -19,10 +19,15 @@ let Course = require('../models/Course');
 //==========================================api for all course========================================//
 
 router.get('/allcourses', async (req, res) => {
-    let allcourses = await knex.select('*').from("courses");
-    // console.log(allcourses);
 
-    res.send(allcourses)// need to put the res data into handlebars//
+    try {
+        let allcourses = await knex.select('*').from("courses");
+        // console.log(allcourses);
+
+        res.send(allcourses)// need to put the res data into handlebars//
+    } catch (error) {
+        res.send(error)
+    }
 })
 
 
@@ -31,11 +36,14 @@ router.get('/allcourses', async (req, res) => {
 
 
 router.get('/singlecourse/:courseid', async (req, res) => {
-
-    let courseid = req.params.courseid
-    let singlecourse = await knex.select('*').from('courses').where('id', courseid)
-    res.send(singlecourse)
-    // console.log(singlecourse);
+    try {
+        let courseid = req.params.courseid
+        let singlecourse = await knex.select('*').from('courses').where('id', courseid)
+        res.send(singlecourse)
+        // console.log(singlecourse);
+    } catch (error) {
+        res.send(error)
+    }
 })
 
 
@@ -50,7 +58,7 @@ router.get('/mycourse/:userid', async (req, res) => {
         let myCourse = await knex('courses')
             .join('users_course', 'courses.id', '=', 'users_course.course_id')
             .where('users_id', userid)
-            .select('courses.id', 'course_name', 'price', 'duration', 'start_date', 'end_date', 'course_description')
+            .select('users_id', 'courses.id', 'course_name', 'price', 'duration', 'start_date', 'end_date', 'course_description')
 
         // console.log(myCourse);
         res.send(myCourse)
@@ -67,7 +75,7 @@ router.get('/mycourse/:userid', async (req, res) => {
 router.post('/enroll', async (req, res) => {
     try {
         let newEnroll = req.body;
-
+        // console.log(newEnroll);
         let existingEnroll = await knex('users_course')
             .where({
                 users_id: newEnroll.users_id,
@@ -95,6 +103,23 @@ router.post('/enroll', async (req, res) => {
     } catch (error) {
         res.send(error)
     }
+})
+
+//======================================api for getting user profile======================================///
+
+router.get('/myprofile/:userid', async (req, res) => {
+
+    try {
+        let userid = req.params.userid
+
+        let myprofile = await knex.select('first_name', 'last_name', 'password', 'email', 'contact_no').from('users').where('id', userid)
+        myprofile = myprofile[0]
+        res.send(myprofile)
+        // console.log(myprofile);
+    } catch (error) {
+        res.send(error)
+    }
+
 })
 
 //======================================api for adding a new  course======================================///
@@ -170,13 +195,10 @@ router.delete('/deleteCourse/:courseid', async (req, res) => {
             .del()
         //    console.log(deleted);           
         let deletedCourse = await knex('courses')
-            // .join('users_course', ' courses.id','=', ' users_course.course_id')
+
             .where('id', courseid)
             .del(['courses.id', 'course_name'])
-        //  let deleted =  await knex('courses')
-        //  .join('users_course', ' courses.id','=', ' users_course.course_id')
-        //  .where('id', courseid)
-        //  .del()              
+
         let deletedObj = deletedCourse[0]
         res.send(deletedObj)
         console.log(deletedObj);
@@ -190,9 +212,6 @@ router.delete('/deleteCourse/:courseid', async (req, res) => {
 ///======================================api for searching a course in search bar======================================///
 
 
-
-
-
 router.get('/search/:query', async (req, res) => {
 
 
@@ -200,12 +219,12 @@ router.get('/search/:query', async (req, res) => {
         searchquery = req.params.query
         // const searchTerm = req.query.q; // Get the search term from the query parameter
 
-        let results =   await knex('courses')
-                         .select('course_name','price', 'duration','start_date', 'end_date','course_description')
-                       .whereRaw(`course_name @@ to_tsquery(?)`, [searchquery]);
+        let results = await knex('courses')
+            .select('course_name', 'price', 'duration', 'start_date', 'end_date', 'course_description')
+            .whereRaw(`course_name @@ to_tsquery(?)`, [searchquery]);
 
-                         res.send(results);
-                         console.log(results);
+        res.send(results);
+        console.log(results);
 
     } catch (error) {
         // Handle any errors

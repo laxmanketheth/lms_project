@@ -2,22 +2,9 @@ let express = require("express");
 let app = express();
 let hb = require("express-handlebars");
 
+
+
 let port = 8080;
-
-//*****passport************//
-// const session = require("express-session");
-// const passport = require('./auth/passport-config');
-
-// app.use(
-//     session({
-//         secret: 'ExpectoPatronum',
-//         resave: false,
-//         saveUninitialized: false,
-//     })
-// )
-
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 //***** requiring routes from routes folder file***//
 
@@ -28,7 +15,6 @@ app.use("/courses", coursesRoute);
 app.use("/auth",authRoute);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 
 
 app.engine("handlebars", hb.engine({ defaultLayout: "main" }));
