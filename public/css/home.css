@@ -1,0 +1,70 @@
+
+/* =====================css for home page=================================== */
+
+.image-outer-div{
+    position: relative;
+}
+
+.happy-students-textbox{
+    /* don't change it */
+   margin-left: 0.5px;
+    background-color: rgb(250, 194, 51);
+}
+
+.carousel-text{
+    color: darkorange;
+}
+
+
+/* ===============================slider======================= */
+
+.brands-container{
+    margin-top: 50px;
+}
+
+.slider-images{
+    height: 60px;
+    margin-top: 20px;
+}
+.slider-container{
+    border: 1px solid;
+    margin: 10px 100px 50px 70px;
+}
+
+
+
+@keyframes scroll{
+    0%{
+        transform:  translate(0);
+    }
+    100%{
+        transform: translate(calc(-250px* 7));
+    }
+}
+.slider{
+    height: 100px;
+    margin: auto;
+    overflow: hidden;
+    position: relative;
+    width: auto;
+}
+
+.slider .slide-track{
+    animation: scroll 40s linear infinite;
+    display: flex;
+    width: calc(250px *14);
+}
+
+.slider .slide{
+    height: 100px;
+    width: 250px;
+}
+
+
+
+.contact-container{
+    margin-left: 1px;
+    background-color: rgb(250, 194, 51);
+    height: 300px;
+
+}

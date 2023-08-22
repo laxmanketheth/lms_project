@@ -4,8 +4,10 @@ let hb = require("express-handlebars");
 
 
 
-let port = 8080;
+let port = 8083;
 
+
+app.use(express.static("public"));
 //***** requiring routes from routes folder file***//
 
 let authRoute = require("./routes/auth");
@@ -30,8 +32,9 @@ app.listen(port,()=>{
     console.log("listening to port 8080");
 })
 
-
-
+app.get('/',(req,res)=>{
+    res.render('home')
+})
 
 
 

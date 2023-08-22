@@ -9,6 +9,8 @@ let knexfile = require('../knexfile').development;
 let knex = require('knex')(knexfile);
 knex.select();
 
+router.use(express.static("public"));
+
 
 //*****requiring Course class *********//
 let Course = require('../models/Course');
@@ -16,15 +18,26 @@ let Course = require('../models/Course');
 
 //****Routing******//
 
+// router.use(express.static("public"));
+// router.get('/',(req,res)=>{
+//     res.render('home')
+// })
+
 //==========================================api for all course========================================//
 
 router.get('/allcourses', async (req, res) => {
 
     try {
         let allcourses = await knex.select('*').from("courses");
+
         // console.log(allcourses);
 
-        res.send(allcourses)// need to put the res data into handlebars//
+
+        // console.log(coursesobj);
+        res.render('allcourses', {courses : allcourses} )// we need to assign data received from database to a key and place it inside an object//
+                                                        //in this case assigning allcourses data to courses and place it inside an object using curly braces//
+        
+        
     } catch (error) {
         res.send(error)
     }
@@ -39,7 +52,12 @@ router.get('/singlecourse/:courseid', async (req, res) => {
     try {
         let courseid = req.params.courseid
         let singlecourse = await knex.select('*').from('courses').where('id', courseid)
-        res.send(singlecourse)
+
+       singlecourse = singlecourse[0]
+    //    console.log(singlecourse);
+
+        res.render('singlecourse', {course : singlecourse})
+
         // console.log(singlecourse);
     } catch (error) {
         res.send(error)
@@ -176,7 +194,7 @@ router.put('/updateCourse/:courseid', async (req, res) => {
             }, ['*'])
 
         res.send(updates)
-        console.log(updates);
+        // console.log(updates);
 
     } catch (error) {
         res.send(error)

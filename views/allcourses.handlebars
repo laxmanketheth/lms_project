@@ -1,0 +1,16 @@
+
+<h1>all courses page</h1>
+
+{{#each courses}}
+
+{{!-- here we are rendering all the courses data and putting them in required tags and required places --}}
+
+<h2>{{this.course_name}}</h2>
+<h3>{{this.price}}</h3>
+<h3>{{this.duration}}</h3>
+<h3>{{this.start_date}}</h3>
+<h3>{{this.end_date}}</h3>
+<h3>{{this.course_description}}</h3>
+
+
+{{/each}}
