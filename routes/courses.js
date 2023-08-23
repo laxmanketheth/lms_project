@@ -18,10 +18,6 @@ let Course = require('../models/Course');
 
 //****Routing******//
 
-// router.use(express.static("public"));
-// router.get('/',(req,res)=>{
-//     res.render('home')
-// })
 
 //==========================================api for all course========================================//
 

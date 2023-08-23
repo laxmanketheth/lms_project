@@ -1,11 +1,54 @@
-
-
-<h1>here you can see single course</h1>
-
 {{!-- {{#each course}}
 {{log this}}
 
 
 {{/each}} --}}
-<h3>{{course.course_name}}</h3>
-<h3>{{course.price}}</h3>
+{{!-- <h3>{{course.course_name}}</h3>
+<h3>{{course.price}}</h3> --}}
+
+<head>
+    <link rel="stylesheet" href="/css/singlecourse.css">
+</head>
+
+<body>
+
+
+
+    <div class="container bg-secondary my-5 ">
+        <div class="row">
+            <div class="col-sm-12 text-center my-4 text-light fs-5 ">
+                <!-- Content goes here -->
+                <h1 class="fw-light">Course Details</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container  ">
+        <div class="row">
+
+            <div class="card text-center">
+                <div class="card-header bg-green fs-2">
+                    <span>Course Name :</span> {{course.course_name}}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Price :<span> {{course.price}}</span></h5>
+                    <h5 class="card-title">Duration :<span> {{course.duration}}</span></h5>
+                    <h5 class="card-title">Start-Date : <span id="startDate">{{course.start_date}} </span></h5>
+                    <h5 class="card-title">End-Date : <span id="endDate">{{course.end_date}} </span></h5>
+                    <p class="card-title">Description :<span> {{course.course_description}}</span></p>
+                    <a href="#" class="btn btn-success">Enroll Now</a>
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+    <script src="/javascript/singlecourse.js"></script>
+
+</body>

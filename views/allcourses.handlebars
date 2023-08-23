@@ -1,16 +1,73 @@
 
-<h1>all courses page</h1>
-
-{{#each courses}}
 
 {{!-- here we are rendering all the courses data and putting them in required tags and required places --}}
 
-<h2>{{this.course_name}}</h2>
-<h3>{{this.price}}</h3>
-<h3>{{this.duration}}</h3>
-<h3>{{this.start_date}}</h3>
-<h3>{{this.end_date}}</h3>
-<h3>{{this.course_description}}</h3>
 
 
-{{/each}}
+<body>
+
+    {{!-- ======================================big image container============================================ --}}
+
+    <div class="container bg-secondary my-5 ">
+        <div class="row">
+            <div class="col-sm-12 text-center my-4 text-light fs-5 ">
+                <!-- Content goes here -->
+                <h1 class="fw-light">Courses Offered at our Institution</h1>
+            </div>
+        </div>
+    </div>
+
+    {{!--============================================ cards for courses ====================================--}}
+    <div class="container bg-secondary my-5 ">
+        <div class="row">
+
+
+
+
+            {{!-- <div class="row mx-3"> --}}
+                {{#each courses}}
+                <div class="col-sm-6">
+                    <div class="card my-3 mx-5">
+                        <div class="card-body">
+
+                            <h3 class="card-title">Course Name :<span> {{course_name}}</span></h3><br>
+                            <h5 class="card-title">Price :<span> {{price}}</span></h5>
+                            <h5 class="card-title">Duration :<span> {{duration}}</span></h5>
+                            <h5 class="card-title">Start-Date : <span class="startDate">{{start_date}} </span></h5>
+                            <h5 class="card-title">End-Date : <span class="endDate">{{end_date}} </span></h5>
+                            <p class="card-title">Description :<span> {{course_description}}</span></p>
+                            <a href="#" class="btn btn-success">Enroll Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                {{/each}}
+
+
+
+
+
+
+            </div>
+        </div>
+
+        <script src="/javascript/allcourses.js"></script>
+
+</body>
+
+{{!--
+{{#each courses}}
+<div class="col-sm-6">
+    <div class="card my-3 mx-5">
+        <div class="card-body">
+            {{!-- {{log this}} --}}
+            {{!-- <h3 class="card-title">{{course_name}}</h3>
+            <h6>{{price}}</h6>
+            <h6>{{duration}}</h6>
+            <h6>{{start_date}}</h6>
+            <h6>{{end_date}}</h6>
+            <p>{{course_description}}</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div> --}}
