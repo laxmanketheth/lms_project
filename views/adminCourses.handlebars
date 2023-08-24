@@ -1,31 +1,43 @@
 
 
-{{!-- here we are rendering all the courses data and putting them in required tags and required places --}}
-
-
-
 <body>
 
-    {{!-- ======================================big image container============================================ --}}
+
+
+         <h1 class="text-center  text-warning bg-light">Admin's Corner</h1>
+    <div class="container bg-light my-5 ">
+        <div class="row">
+            <h1 class="text-center welcome">Welcome back, Mr. {{name.first_name}} {{name.last_name}} !</h1>
+        </div>
+    </div>
+
 
     <div class="container bg-secondary my-5 ">
         <div class="row">
-            <div class="col-sm-12 text-center my-4 text-light fs-5 ">
+            <div class="col-sm-12 text-center my-2 text-dark fs-5 bg-light">
                 <!-- Content goes here -->
-                <h1 class="fw-light">Courses Offered at our Institution</h1>
+                <h1 class="fw-light">All Courses</h1>
             </div>
         </div>
     </div>
 
     {{!--============================================ cards for courses ====================================--}}
+    
+    {{!-- ==========some css styling========== --}}
+    
+   <style>
+    .big-courses-container{background-color: #f8f9fa };
+   </style>
+
+    
     <div class="container bg-secondary my-5 ">
-        <div class="row">
+        <div class="row big-courses-container" style="background-color: ;">
 
 
             {{!-- <div class="row mx-3"> --}}
                 {{#each courses}}
-                <div class="col-sm-6">
-                    <div class="card my-3 mx-5">
+                <div class="col-sm-6 big-courses-container">
+                    <div class="card my-3 mx-5" style="background-color: rgb(218, 233, 193);">
                         <div class="card-body">
 
                             <h3 class="card-title">Course Name :<span> {{course_name}}</span></h3><br>
@@ -34,7 +46,8 @@
                             <h5 class="card-title">Start-Date : <span class="startDate">{{start_date}} </span></h5>
                             <h5 class="card-title">End-Date : <span class="endDate">{{end_date}} </span></h5>
                             <p class="card-title">Description :<span> {{course_description}}</span></p>
-                            <a href="#" class="btn btn-success">Enroll Now</a>
+                            <a href="/courses/updateCourse" class="btn fw-bold" style="background-color:rgb(218, 157, 43)">Edit Course</a>
+                            <a href="#" class="btn fw-bold" style="background-color: rgb(201, 1, 1);">Delete Course</a>
                         </div>
                     </div>
                 </div>
@@ -47,4 +60,3 @@
         <script src="/javascript/allcourses.js"></script>
 
 </body>
-

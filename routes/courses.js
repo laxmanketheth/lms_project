@@ -19,6 +19,7 @@ let Course = require('../models/Course');
 //****Routing******//
 
 
+
 //==========================================api for all course========================================//
 
 router.get('/allcourses', async (req, res) => {
@@ -30,7 +31,7 @@ router.get('/allcourses', async (req, res) => {
 
 
         // console.log(coursesobj);
-        res.render('allcourses', {courses : allcourses} )// we need to assign data received from database to a key and place it inside an object//
+        res.render('allcourses', {courses : allcourses, title: 'All courses'} )// we need to assign data received from database to a key and place it inside an object//
                                                         //in this case assigning allcourses data to courses and place it inside an object using curly braces//
         
         
@@ -73,9 +74,16 @@ router.get('/mycourse/:userid', async (req, res) => {
             .join('users_course', 'courses.id', '=', 'users_course.course_id')
             .where('users_id', userid)
             .select('users_id', 'courses.id', 'course_name', 'price', 'duration', 'start_date', 'end_date', 'course_description')
+// console.log(myCourse);
 
-        // console.log(myCourse);
-        res.send(myCourse)
+        let username = await knex.select('id','first_name','last_name')
+                                .from('users')
+                                .where('id', userid)
+                                username[0]
+        // console.log(username);
+        
+       res.render('student',{layout:'users', course : myCourse, personName : username[0]})
+
 
     } catch (error) {
         res.send(error)
@@ -115,7 +123,7 @@ router.post('/enroll', async (req, res) => {
         }
 
     } catch (error) {
-        res.send(error)
+        res.send("! You must be logged in before enrolling for any course")
     }
 })
 
@@ -168,6 +176,15 @@ router.post('/addcourse', async (req, res) => {
 
 
 ///======================================api for updating a course======================================///
+
+//===get api for update course===//
+router.get('/updateCourse', (req,res)=>{
+    // console.log('abc');
+    res.render('editCourse', {layout : 'users'})
+});
+
+
+//=====put api for update course=====//
 
 router.put('/updateCourse/:courseid', async (req, res) => {
 
