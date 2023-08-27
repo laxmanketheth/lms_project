@@ -1,11 +1,7 @@
-
-
-
-
 <head>
     <title>{{title}}</title>
     <link rel="stylesheet" href="/css/singlecourse.css">
-{{!-- {{title}}     --}}
+    {{!-- {{title}} --}}
 </head>
 
 <body>
@@ -21,7 +17,6 @@
         </div>
     </div>
 
-
     <div class="container  ">
         <div class="row">
 
@@ -34,18 +29,14 @@
                     <h5 class="card-title">Duration :<span> {{course.duration}}</span></h5>
                     <h5 class="card-title">Start-Date : <span id="startDate">{{course.start_date}} </span></h5>
                     <h5 class="card-title">End-Date : <span id="endDate">{{course.end_date}} </span></h5>
-                    <p class="card-title">Description :<span> {{course.course_description}}</span></p>
-                    <a href="#" class="btn btn-success">Enroll Now</a>
+                    <p class="card-title fs-4">Course Description :<span> {{course.course_description}}</span></p>
+                    {{!-- <a href="#" class="btn btn-success">Enroll Now</a> --}}
                 </div>
 
             </div>
-
-
-
-
-
         </div>
     </div>
+
 
     <script src="/javascript/singlecourse.js"></script>
 

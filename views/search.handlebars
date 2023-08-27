@@ -1,0 +1,35 @@
+<div class="container bg-secondary my-5 ">
+    <div class="row">
+        <div class="col-sm-12 text-center my-4 text-light fs-5 ">
+            <!-- Content goes here -->
+            <h1 class="fw-light">Search Result</h1>
+        </div>
+    </div>
+</div>
+
+
+{{#each searchresults}}
+
+<div class="container  ">
+    <div class="row">
+
+        <div class="card text-center">
+            <div class="card-header bg-green fs-2">
+                <span>Course Name :</span> {{course_name}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Duration :<span> {{duration}}</span></h5>
+                {{!-- <h5 class="card-title">Start-Date : <span id="startDate">{{start_date}} </span></h5>
+                <h5 class="card-title">End-Date : <span id="endDate">{{end_date}} </span></h5> --}}
+                {{!-- <p class="card-title fs-4">Course Description :<span> {{course_description}}</span></p> --}}
+               
+            </div>
+
+        </div>
+
+        {{/each}}
+
+
+
+    </div>
+</div>

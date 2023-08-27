@@ -1,14 +1,14 @@
-
-
 {{!-- here we are rendering all the courses data and putting them in required tags and required places --}}
 
 
 
 <body>
 
-    {{!-- ======================================big image container============================================ --}}
 
-    <div class="container bg-secondary my-5 ">
+    {{!-- ======================================big image container============================================ --}}
+    
+
+    <div class="container bg-secondary my-5 pt-3">
         <div class="row">
             <div class="col-sm-12 text-center my-4 text-light fs-5 ">
                 <!-- Content goes here -->
@@ -17,10 +17,17 @@
         </div>
     </div>
 
-    {{!--============================================ cards for courses ====================================--}}
-    <div class="container bg-secondary my-5 ">
+
+
+{{!--============================================ cards for courses ====================================--}}
+    
+
+
+
+    <div class="container bg-secondary my-1 ">
         <div class="row">
 
+    
 
             {{!-- <div class="row mx-3"> --}}
                 {{#each courses}}
@@ -29,12 +36,22 @@
                         <div class="card-body">
 
                             <h3 class="card-title">Course Name :<span> {{course_name}}</span></h3><br>
-                            <h5 class="card-title">Price :<span> {{price}}</span></h5>
+                            {{!-- <h5 class="card-title">Price :<span> {{price}}</span></h5> --}}
                             <h5 class="card-title">Duration :<span> {{duration}}</span></h5>
-                            <h5 class="card-title">Start-Date : <span class="startDate">{{start_date}} </span></h5>
-                            <h5 class="card-title">End-Date : <span class="endDate">{{end_date}} </span></h5>
-                            <p class="card-title">Description :<span> {{course_description}}</span></p>
-                            <a href="#" class="btn btn-success">Enroll Now</a>
+                            {{!-- <h5 class="card-title">Start-Date : <span class="startDate">{{start_date}} </span></h5> --}}
+                            {{!-- <h5 class="card-title">End-Date : <span class="endDate">{{end_date}} </span></h5> --}}
+                            {{!-- <p class="card-title">Description :<span> {{course_description}}</span></p> --}}
+                            {{!-- <a href="#" class="btn btn-success" id="enrollnow">Enroll Now</a> --}}
+                        
+                        
+                        {{!-- here we created a form and in the input field sent the course id as req.body to the singlecourse api
+                        we received this course id from allcourses api at backend using knex query and handlebars --}}
+                        <form action="singlecourse" method="POST" class="">
+                            <input type="text" name="id" class="d-none" value={{id}}>
+                            <button type="submit" class="bg-success text-light">Course Details</button>
+                        </form>
+                        
+                        
                         </div>
                     </div>
                 </div>
@@ -47,4 +64,3 @@
         <script src="/javascript/allcourses.js"></script>
 
 </body>
-

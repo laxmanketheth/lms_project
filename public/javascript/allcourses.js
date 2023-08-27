@@ -6,12 +6,11 @@
 
 
 let startDateElements = document.getElementsByClassName("startDate")//getElementsByClassName returns array of elements//
-// console.log(startDateElements);
+
 for(let i=0; i<startDateElements.length; i++){
     // console.log(startDateElements[i].innerHTML);
     let currentdate = new Date(startDateElements[i].innerHTML) //to access the date inside each element//
-    // console.log(currentdate);
-
+    
     let newdates = currentdate.toLocaleDateString()    //toLocaleDateString method returns only date string and removes time from it //
 // console.log(newdates);
     document.getElementsByClassName("startDate")[i].innerHTML = newdates  //pushing the new date back inside each element //
@@ -29,3 +28,4 @@ for(let i = 0; i< endDateElements.length; i++){
     document.getElementsByClassName("endDate")[i].innerHTML = newDate
     
 }
+

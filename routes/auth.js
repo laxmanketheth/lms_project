@@ -4,7 +4,7 @@ let fs = require('fs')
 const bcrypt = require('bcrypt');
 let axios = require('axios')
 
-//**to encode the req.body data sent from front end into json format**//
+//**to parse the req.body data sent from front end into json format so that it is readable/accessible to the routes handlers at the server**//
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
@@ -54,15 +54,17 @@ router.post("/signup", async (req, res) => {
       return res.render("signup", { alertText: "! User Already Exists" });
     }
 
+    else {
     const hashedPassword = await bcrypt.hash(user.password, 10);
 
-    // user.password = hashedPassword
+    user.password = hashedPassword
 
 
     await knex('users').insert(user);
     // res.send('User added to the database');
-    let response = res.render('login')
+    let response = res.render('login',{alert : 'Yayy! You have successfully created an account, try to login now'})
     // console.log(response);
+    }
 
   } catch (error) {
     console.log(error);
@@ -113,7 +115,6 @@ async function getMyCourse(userid) {
 
 
 
-
 router.post("/login", async (req, res) => {
   try {
     let email = req.body.email;
@@ -121,38 +122,35 @@ router.post("/login", async (req, res) => {
 
     const user = await knex('users').where('email', email).first();
     if (!user) {
-      return res.render( 'login', {incorrectEmail :'! Incorrect email'});
+      return res.render('login', { incorrectEmail: '! Incorrect email' });
     }
 
-    const isPasswordValid = await bcrypt.compare( password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.render( 'login', {incorrectPassword: '! Incorrect password'});
+      return res.render('login', { incorrectPassword: '! Incorrect password' });
     }
 
     if (user.user_type === "ADMIN") {
       // res.render('teachers', { layout: "users" });
       let functionData = await getMyCourse(user.id)
-      let {myCourse,personName}= functionData
-// console.log(functionData);
+      let { myCourse, personName } = functionData
+      // console.log(functionData);
       let allcoursesdata = await allcourses() ///calling the function here that was defined before to get courses data from database using knex==//
-      
+
       // console.log(allcoursesdata);
 
       // res.render('teachers', { layout: 'users', course: myCourse, personName });
-      res.render('adminCourses', { layout: 'users',name: personName, courses: allcoursesdata });
+      res.render('admin', { layout: false, name: personName, courses: allcoursesdata });
 
 
-    } else if (user.user_type === "STUDENT") {                        
+    } else if (user.user_type === "STUDENT") {
       // Call the function for the second API
       let functionData = await getMyCourse(user.id)     //the above function getmycourse() is called here, it takes the user.id received from 
-                                                        //current knex query as argument and returns us knex queries made inside that function previously//
+      //current knex query as argument and returns us knex queries made inside that function previously//
 
-      let {myCourse,personName}= functionData         //desctructuring the get myMyCourse function and extracting the values of myCourse and personName//
-      
-      // const { myCourse, personName } = await getMyCourse(user.id); 
-
-      res.render('student', { layout: 'users', course: myCourse, name: personName });
+      let { myCourse, personName } = functionData         //desctructuring the get myMyCourse function and extracting the values of myCourse and personName// 
+      res.render('student', { layout: false, course: myCourse, name: personName });
     }
   } catch (error) {
     console.log(error);
@@ -216,7 +214,7 @@ router.post("/login", async (req, res) => {
 //     if (user.user_type === "ADMIN") {
 //       res.render('teachers',{layout: "users"});
 
-//     } else if (user.user_type === "STUDENT") 
+//     } else if (user.user_type === "STUDENT")
 //       res.render('student',{layout: "users"});
 
 //   } catch (error) {
