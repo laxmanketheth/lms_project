@@ -262,7 +262,7 @@ router.post('/addcourse', async (req, res) => {
             //    console.log(addCourse);
             let courseData = addCourse[0]
 
-            res.render('courseaddedsuccessful', { alert: 'Hurray! You added new course successfully', layout: 'users' })
+            res.render('courseaddedsuccessful', { alert: 'You added new course successfully !', layout: 'users' })
             // res.send(courseData)
             // console.log(courseData);
 
