@@ -33,7 +33,7 @@ app.listen(port,()=>{
 })
 
 app.get('/',(req,res)=>{
-    res.render('home')
+    res.render('home',{title:'Home'})
 })
 
 

@@ -2,7 +2,7 @@ let express = require("express")
 let router = express.Router();
 // let fs = require('fs')
 const bcrypt = require('bcrypt');
-// let axios = require('axios')
+
 
 //**to parse the req.body data sent from front end into json format so that it is readable/accessible to the routes handlers at the server**//
 router.use(express.json());
@@ -16,6 +16,7 @@ let knexfile = require('../knexfile').development;
 let knex = require('knex')(knexfile);
 knex.select();
 
+
 //*****requiring  User class *********//
 let User = require("../models/User");
 
@@ -26,7 +27,7 @@ module.exports = router;
 //===========================================SIGNUP***API===========================================///
 
 router.get('/signup', (req, res) => {
-  res.render('signup')
+  res.render('signup' )
 });
 
 router.get('/login', (req, res) => {
@@ -123,8 +124,8 @@ router.post("/login", async (req, res) => {
     const user = await knex.select('id','first_name','last_name','email','contact_no','user_type', 'password')
                   .from('users').where('email', email);
 
-    console.log("user data");
-    console.log(user[0]);
+    // console.log("user data");
+    // console.log(user[0]);
     if (!user) {
       return res.render('login', { incorrectEmail: '! Incorrect email' });
     }

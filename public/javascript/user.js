@@ -3,10 +3,6 @@
 //========================all courses==============================//
 
 
-
-
-
-
 let startDateElements = document.getElementsByClassName("startDate")//getElementsByClassName returns array of elements//
 
 for(let i=0; i<startDateElements.length; i++){
