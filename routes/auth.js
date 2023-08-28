@@ -1,8 +1,8 @@
 let express = require("express")
 let router = express.Router();
-let fs = require('fs')
+// let fs = require('fs')
 const bcrypt = require('bcrypt');
-let axios = require('axios')
+// let axios = require('axios')
 
 //**to parse the req.body data sent from front end into json format so that it is readable/accessible to the routes handlers at the server**//
 router.use(express.json());
@@ -96,18 +96,18 @@ async function allcourses() {
 //and then later use that function inside the login API//
 
 
-async function getMyCourse(userid) {
+async function getMyCourses(userid) {
   try {
-    let myCourse = await knex('courses')
+    let myCourses = await knex('courses')
       .join('users_course', 'courses.id', '=', 'users_course.course_id')
       .where('users_id', userid)
       .select('users_id', 'courses.id', 'course_name', 'price', 'duration', 'start_date', 'end_date', 'course_description');
 
-    let username = await knex.select('id', 'first_name', 'last_name')
-      .from('users')
-      .where('id', userid);
+    // let username = await knex.select('id', 'first_name', 'last_name')
+    //   .from('users')
+    //   .where('id', userid);
 
-    return { myCourse, personName: username[0] };
+    return myCourses;
   } catch (error) {
     throw error;
   }
@@ -120,37 +120,33 @@ router.post("/login", async (req, res) => {
     let email = req.body.email;
     let password = req.body.password;
 
-    const user = await knex('users').where('email', email).first();
+    const user = await knex.select('id','first_name','last_name','email','contact_no','user_type', 'password')
+                  .from('users').where('email', email);
+
+    console.log("user data");
+    console.log(user[0]);
     if (!user) {
       return res.render('login', { incorrectEmail: '! Incorrect email' });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, user[0].password);
 
     if (!isPasswordValid) {
       return res.render('login', { incorrectPassword: '! Incorrect password' });
     }
 
-    if (user.user_type === "ADMIN") {
-      // res.render('teachers', { layout: "users" });
-      let functionData = await getMyCourse(user.id)
-      let { myCourse, personName } = functionData
-      // console.log(functionData);
+    if (user[0].user_type === "ADMIN") {
+
       let allcoursesdata = await allcourses() ///calling the function here that was defined before to get courses data from database using knex==//
 
-      // console.log(allcoursesdata);
+      res.render('admin', { layout: false, user: user[0], courses: allcoursesdata });
 
-      // res.render('teachers', { layout: 'users', course: myCourse, personName });
-      res.render('admin', { layout: false, name: personName, courses: allcoursesdata });
+    } else if (user[0].user_type === "STUDENT") {
 
-
-    } else if (user.user_type === "STUDENT") {
-      // Call the function for the second API
-      let functionData = await getMyCourse(user.id)     //the above function getmycourse() is called here, it takes the user.id received from 
+      let mycourses = await getMyCourses(user[0].id)     //the above function getmycourse() is called here, it takes the user.id received from 
       //current knex query as argument and returns us knex queries made inside that function previously//
 
-      let { myCourse, personName } = functionData         //desctructuring the get myMyCourse function and extracting the values of myCourse and personName// 
-      res.render('student', { layout: false, course: myCourse, name: personName });
+      res.render('student', { layout: false, course: mycourses, user: user[0] });
     }
   } catch (error) {
     console.log(error);
@@ -161,36 +157,7 @@ router.post("/login", async (req, res) => {
 
 
 
-
-
-//===========================================Might Need it Later=========================//
-
-// router.get('/mycourse/:userid', async (req, res) => {
-//   try {
-//     let userid = req.params.userid;
-
-//     // Call the function for the second API
-//     const { myCourse, personName } = await (userid);
-
-//     res.render('student', { layout: 'users', course: myCourse, personName });
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 //===========================================old API for logIn with bcrypt====================================/////
 
 

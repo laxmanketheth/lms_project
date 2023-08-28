@@ -35,7 +35,7 @@
           </li> --}}
 
           <li class="nav-item">
-            <a class="nav-link mydashboard" href="/auth/login">Log Out</a>
+            <a class="nav-link mydashboard" id="logOutBtn" href="/auth/login">Log Out</a>
           </li>
         </ul>
       </div>
@@ -49,7 +49,13 @@
   <h1 class="text-center  text-warning bg-light">Admin's Corner</h1>
   <div class="container bg-light my-5 ">
     <div class="row">
-      <h1 class="text-center welcome">Welcome back, Mr. {{name.first_name}} {{name.last_name}} !</h1>
+      <h1 class="text-center welcome">Welcome back, Mr. {{user.first_name}} {{user.last_name}} !</h1>
+      <span id="userId" class="d-none">{{user.id}}</span>
+      <span id="email" class="d-none">{{user.email}}</span>
+      <span id="user_type" class="d-none">{{user.user_type}}</span>
+      <span id="first_name" class="d-none">{{user.first_name}}</span>
+      <span id="last_name" class="d-none">{{user.last_name}}</span>
+      <span id="contact_no" class="d-none">{{user.contact_no}}</span> 
     </div>
   </div>
 
@@ -105,12 +111,13 @@
               <p class="card-title">Description :<span> {{course_description}}</span></p>
 
               <form action="/courses/updateCourseForm" method="POST">
-                {{!-- the name value in input field should be same as accepted after req.body --}}
                 <div class="my-4 d-flex ">
-                  <input class="d-none" type="text" value="{{id}}" name="id">
+                    {{!-- // the name value in input field should be same as accepted after req.body// --}}
+                  {{!-- //the id here is received from all courses api call made before and then sent to backend dynamically
+                        so that we can render a update course page from backend// --}}
+                  <input class="d-none" type="text" value="{{id}}" name="id"> 
                   <button href="#" class="btn fw-bold me-4 h-25" style="background-color:rgb(218, 157, 43)" id="editbtn"
                     type="submit">Edit Course</button>
-
               </form>
 
               <form action="/courses/deleteCourse" method="POST">
@@ -131,7 +138,7 @@
     </div>
   </div>
 
-  <script src="/javascript/allcourses.js"></script>
+  <script src="/javascript/user.js"></script>
 
   {{!-- for trying --}}
   {{!--
@@ -146,5 +153,6 @@
     integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
     crossorigin="anonymous"></script>
 
+<script src="/javascript/sessiondata.js"></script>
 
 </body>

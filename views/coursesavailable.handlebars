@@ -27,24 +27,45 @@
                 <div class="col-sm-6">
                     <div class="card my-3 mx-5">
                         <div class="card-body">
-
+                            <h3 class="card-title d-none">Course Id :<span> {{id}}</span></h3><br>
                             <h3 class="card-title">Course Name :<span> {{course_name}}</span></h3><br>
                             <h5 class="card-title">Price :<span> {{price}}</span></h5>
                             <h5 class="card-title">Duration :<span> {{duration}}</span></h5>
                             <h5 class="card-title">Start-Date : <span class="startDate">{{start_date}} </span></h5>
                             <h5 class="card-title">End-Date : <span class="endDate">{{end_date}} </span></h5>
                             <p class="card-title">Description :<span> {{course_description}}</span></p>
-                            <a href="#" class="btn btn-success" id="enrollnow" >Enroll Now</a>
+                            
+
+                        <form action="/courses/enroll" method="POST">
+                            <input type="text" name="users_id" class="userId d-none">
+                            <input type="text" name="course_id" class="courseId d-none" value="{{id}}">
+                            <button href="#" class="btn btn-success" id="enrollnow" type="submit">Enroll Now</button>
+                        </form>
+
+
                         </div>
                     </div>
                 </div>
+
 
                 {{/each}}
 
             </div>
         </div>
 
-        <script src="/javascript/allcourses.js"></script>
+
+<script>
+
+    let userIdElements = document.getElementsByClassName('userId');
+    var userId = localStorage.getItem('userId');
+    for (var i = 0; i < userIdElements.length; i++) {
+        var element = userIdElements[i];
+        element.value = userId;
+    }
+
+</script>
+
+<script src="/javascript/user.js"></script>
 
 </body>
 

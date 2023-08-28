@@ -28,25 +28,14 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link allcourses" aria-current="page" href="/courses/coursesavailable" id="allcourses">Courses Available for Enrollment</a>
+
+          <a class="nav-link allcourses" aria-current="page" href="/courses/coursesavailable" type="button" id="allcourses">Courses Available for Enrollment</a>
+       
         </li>
-        {{!-- <li class="nav-item">
-          <a class="nav-link mydashboard" href="#">My Dashboard</a>
-        </li> --}}
 
          <li class="nav-item">
-          <a class="nav-link mydashboard" href="/auth/login">Log Out</a>
+          <a class="nav-link mydashboard" id="logOutBtn" href="/auth/login">Log Out</a>
         </li>
-    
-        {{!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle myprofile" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            My Profile
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="#">My Account</a></li>
-            <li><a class="dropdown-item" href="#">Log Out</a></li>
-          </ul>
-        </li> --}}
       </ul>
     </div>
   </div>
@@ -67,6 +56,12 @@
     <div class="container bg-light my-5 ">
         <div class="row">
             <h1 class="text-center">Welcome back, Mr. {{name.first_name}} {{name.last_name}} !</h1>
+            <span id="userId" class="d-none">{{user.id}}</span>
+            <span id="email" class="d-none">{{user.email}}</span>
+            <span id="user_type" class="d-none">{{user.user_type}}</span>
+            <span id="first_name" class="d-none">{{user.first_name}}</span>
+            <span id="last_name" class="d-none">{{user.last_name}}</span>
+            <span id="contact_no" class="d-none">{{user.contact_no}}</span> 
         </div>
     </div>
 
@@ -94,13 +89,9 @@
         </div>
     </div>
 
-    <script src="/javascript/students.js"></script>
+<script src="/javascript/user.js"></script>
 
-
-    
-
-
-
+<script src="/javascript/sessiondata.js"></script> 
 
 </body>
 
